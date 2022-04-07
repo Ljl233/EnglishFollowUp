@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".synthesis.SynthesisFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/synthesis_fragment_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_700"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24">
+
+        <TextView
+            android:id="@+id/synthesis_fragment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Youth" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/start_synthesis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="开始合成"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/synthesis_fragment_toolbar" />
+
+    <TextView
+        android:id="@+id/synthesis_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击按钮合成"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/start_synthesis"
+        app:layout_constraintLeft_toRightOf="@id/start_synthesis"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/start_synthesis" />
+
+    <ImageView
+        android:id="@+id/record_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:src="@drawable/ic_baseline_play_arrow_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/start_synthesis"
+        app:layout_constraintLeft_toRightOf="@id/synthesis_state"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/start_synthesis" />
+
+    <ImageView
+        android:id="@+id/share_wechat_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_wechat"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/start_synthesis" />
+
+    <TextView
+        android:id="@+id/share_wechat_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="分享到微信"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/share_wechat_bt"
+        app:layout_constraintLeft_toRightOf="@id/share_wechat_bt"
+        app:layout_constraintTop_toTopOf="@id/share_wechat_bt" />
+</androidx.constraintlayout.widget.ConstraintLayout>

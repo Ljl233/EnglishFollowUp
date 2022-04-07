@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/articleListFragment">
+
+    <fragment
+        android:id="@+id/articleListFragment"
+        android:name="com.ljl.englishfollowup.home.ArticleListFragment"
+        android:label="ArticleListFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_articleListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_articleListFragment_to_recordListFragment2"
+            app:destination="@id/recordListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.ljl.englishfollowup.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_list_sentence">
+        <action
+            android:id="@+id/action_detailFragment_to_synthesisFragment"
+            app:destination="@id/synthesisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/synthesisFragment"
+        android:name="com.ljl.englishfollowup.synthesis.SynthesisFragment"
+        android:label="fragment_synthesis"
+        tools:layout="@layout/fragment_synthesis" />
+
+    <fragment
+        android:id="@+id/recordListFragment"
+        android:name="com.ljl.englishfollowup.record.RecordListFragment"
+        android:label="RecordListFragment"
+        tools:layout="@layout/fragment_record_list" />
+</navigation>
