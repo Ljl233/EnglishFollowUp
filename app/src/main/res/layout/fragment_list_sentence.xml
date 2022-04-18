@@ -82,5 +82,4 @@
             app:layout_constraintTop_toTopOf="@id/action_play" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
 </FrameLayout>

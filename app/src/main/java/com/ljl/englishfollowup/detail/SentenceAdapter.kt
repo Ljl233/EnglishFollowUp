@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ljl.englishfollowup.R
 import com.ljl.englishfollowup.base.OnSentenceClickListener
 import com.ljl.englishfollowup.model.SentenceDetail
-import com.ljl.englishfollowup.util.MediaPlayerHelper
 import com.ljl.englishfollowup.util.generateOutputFileName
 import com.ljl.englishfollowup.util.getRecordDir
 import java.io.File
@@ -118,13 +117,18 @@ class SentenceAdapter(private val articleTitle: String) : RecyclerView.Adapter<S
         notifyItemChanged(curSentencePlay)
     }
 
+    fun playSentence(position: Int, oldPosition: Int) {
+        notifyItemChanged(position)
+        notifyItemChanged(oldPosition)
+    }
+
     inner class SentenceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var sentence: TextView
         lateinit var playIcon: ImageView
         lateinit var recordBt: ImageView
         private var path: String? = ""
 
-        fun bindView(sentenceDetail: SentenceDetail, isSentencePlaying: Boolean, isRecording: Boolean, isPlayRecoding: Boolean) {
+        fun bindView(sentenceDetail: SentenceDetail, isSentencePlaying: Boolean, isRecording: Boolean, isRecordPlaying: Boolean) {
             sentence = itemView.findViewById(R.id.sentence_english)
             sentence.text = sentenceDetail.english
             sentence.setTextColor(
@@ -144,7 +148,7 @@ class SentenceAdapter(private val articleTitle: String) : RecyclerView.Adapter<S
                 View.INVISIBLE
             } else {
                 playIcon.setImageResource(
-                    if (isPlayRecoding) R.drawable.ic_baseline_pause_24
+                    if (isRecordPlaying) R.drawable.ic_baseline_pause_24
                     else R.drawable.ic_baseline_play_arrow_24
                 )
                 View.VISIBLE
