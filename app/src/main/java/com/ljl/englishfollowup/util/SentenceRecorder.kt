@@ -140,7 +140,7 @@ fun generateOutputFileName(title: String, sentenceId: Int, suffix: String = ".aa
 }
 
 fun getIdFromFileName(fileName: String): Int {
-    val startIndex = fileName.indexOf("_")
-    val endIndex = fileName.indexOf(".")
+    val startIndex = fileName.lastIndexOf("_") + 1
+    val endIndex = fileName.lastIndexOf(".")
     return fileName.substring(startIndex, endIndex).toInt()
 }

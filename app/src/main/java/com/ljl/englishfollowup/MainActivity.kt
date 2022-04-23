@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         if (!checkWritePermission) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 2)
         }
-        startActivityForResult()
     }
 
     private fun regToWx() {

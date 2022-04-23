@@ -1,6 +1,8 @@
 package com.ljl.englishfollowup.synthesis
 
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -37,10 +40,12 @@ class SynthesisFragment : Fragment() {
     private lateinit var synthesisStateTv: TextView
     private lateinit var playBt: ImageView
     private lateinit var shareWechatBt: ImageView
+    private lateinit var downloadBt: ImageView
+    private lateinit var downloadTv: TextView
 
 
     private var state = SYNTHESIS_STATE_UNSTART
-    private var resultFile = ""
+    private var resultFilePath = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +80,12 @@ class SynthesisFragment : Fragment() {
                 shareWechatFriend(context, getResultFile())
             }
         }
+        downloadBt = root.findViewById<ImageView?>(R.id.share_download).apply {
+            setOnClickListener {
+                downloadToLocal()
+            }
+        }
+        downloadTv = root.findViewById(R.id.share_download_text)
         return root
     }
 
@@ -96,9 +107,9 @@ class SynthesisFragment : Fragment() {
             val file2Id = getIdFromFileName(file2)
             file1Id - file2Id
         }
-        resultFile = joinAudio(recordFiles)
+        resultFilePath = joinAudio(recordFiles)
 
-        if (TextUtils.isEmpty(resultFile)) {
+        if (TextUtils.isEmpty(resultFilePath)) {
             updateState(SYNTHESIS_STATE_ERROR)
         } else {
             updateState(SYNTHESIS_STATE_FINISH)
@@ -120,8 +131,8 @@ class SynthesisFragment : Fragment() {
     }
 
     private fun getResultFile(): File? {
-        if (!TextUtils.isEmpty(resultFile)) {
-            return File(resultFile)
+        if (!TextUtils.isEmpty(resultFilePath)) {
+            return File(resultFilePath)
         }
         return null
     }
@@ -157,8 +168,31 @@ class SynthesisFragment : Fragment() {
             mediaPlayer.stop()
             playBt.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         } else {
-            mediaPlayer.play(resultFile)
+            mediaPlayer.play(resultFilePath)
             playBt.setImageResource(R.drawable.ic_baseline_stop_24)
         }
+    }
+
+
+    private fun downloadToLocal() {
+        if (TextUtils.isEmpty(resultFilePath)) {
+            return
+        }
+        val musicDir = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Music";
+        val resultFile = File(resultFilePath)
+        val targetFile = File(musicDir, resultFile.name)
+
+        val fos = targetFile.outputStream()
+        val fis = resultFile.inputStream()
+        val buff = ByteArray(1024)
+
+        while (fis.read(buff) > -1) {
+            fos.write(buff)
+        }
+        fis.close()
+        fos.close()
+
+        downloadTv.text = "保存到" + targetFile.absolutePath
+        Toast.makeText(context, "保存到${targetFile}", Toast.LENGTH_LONG).show()
     }
 }
